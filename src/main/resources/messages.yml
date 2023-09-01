@@ -1,0 +1,14 @@
+# Other messages
+successfully-purchased: "&aSuccessfully purchased {PRODUCT}" # {PRODUCT} placeholder will be replaced with the purchased product name
+reloaded: "&aReloaded plugin"
+
+# Error messages
+errors:
+  unknown-user: "&cThis player doesn't exist!" # This player doesn't exist!
+  player-only: "&cYou can't execute this command as console!" # You can't execute this command as the console!
+  no-permission: "&cYou don't have access to this command!" # You don't have access to this command!
+  incorrect-usage: "&cIncorrect usage!" # Incorrect usage!
+  invalid-number: "&cArgument must be a number!" # Argument must be a number!
+  too-much-value: "&cTarget player doesn't have that much balance!" # Target player doesn't have that much balance!
+  not-enough-balance: "&cYou don't have enough balance to buy this!" # You don't have enough balance to buy this!
+  shop-not-exists: "&cInvalid shop provided!" # Invalid shop provided!

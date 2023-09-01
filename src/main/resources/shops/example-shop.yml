@@ -1,0 +1,28 @@
+# Example Shop Configuration
+
+# Shop Name and Menu Settings
+name: "example-shop"              # Unique name for the shop
+shop-title: "Example Shop"        # Title displayed at the top of the shop
+shop-size: 5                      # Number of rows in the shop menu
+
+# Products Configuration
+products:
+  # First Product: VIP Rank
+  rank-vip:                       # Unique identifier for the product (e.g., VIP rank)
+    item-name: "&a[VIP] Rank"     # Name of the item
+    item-lore:                    # Lore of the item
+      - "&7Get better perks on our network"
+      - "&7with this exclusive rank"
+      - ""
+      - "&7Cost: &61000"
+      - ""
+      - "&eClick to purchase!"
+    item-slot: 11                 # Slot where the item is located
+    item-material: EMERALD_BLOCK  # Material of the item
+    cost: 1000                    # Cost of this product
+
+    # Commands to Execute After Purchase
+    # You can use {PLAYER} as a placeholder for the player's name
+    commands:
+      # This command will give the 'vip' rank to the player
+      - "lp user {PLAYER} parent set vip"

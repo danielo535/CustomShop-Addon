@@ -1,0 +1,6 @@
+name: CustomShop
+version: '${project.version}'
+main: pl.danielo535.customshop.CustomShop
+api-version: '1.13'
+author: [danielo535]
+depend: [CustomWallet]
