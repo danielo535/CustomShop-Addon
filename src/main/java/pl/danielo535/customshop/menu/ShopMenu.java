@@ -22,7 +22,7 @@ public class ShopMenu {
     @SuppressWarnings("deprecation")
     private void open(Player player) {
         final Gui gui = Gui.gui()
-                .title(Component.text(shop.getTitle()))
+                .title(Component.text(colorText(shop.getTitle())))
                 .rows(shop.getSize())
                 .create();
         gui.getInventory().clear();
