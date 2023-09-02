@@ -1,7 +1,5 @@
 package pl.danielo535.customshop.object;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.bukkit.Material;
 
 import java.util.ArrayList;
@@ -9,22 +7,51 @@ import java.util.List;
 
 public class Product {
 
-    @Getter
     private final String product;
-    @Getter
     private final String name;
-    @Getter
-    @Setter
-    private List<String> lore = new ArrayList<>();
-    @Getter
     private final int slot;
-    @Getter
+    private List<String> lore = new ArrayList<>();
+
     private final Material material;
-    @Getter
+
     private final double cost;
-    @Getter
-    @Setter
+
     private List<String> commands = new ArrayList<>();
+
+    public String getProduct() {
+        return product;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<String> getLore() {
+        return lore;
+    }
+
+    public int getSlot() {
+        return slot;
+    }
+    public Material getMaterial() {
+        return material;
+    }
+
+    public double getCost() {
+        return cost;
+    }
+
+    public List<String> getCommands() {
+        return commands;
+    }
+
+    public void setLore(List<String> lore) {
+        this.lore = lore;
+    }
+
+    public void setCommands(List<String> commands) {
+        this.commands = commands;
+    }
 
     public Product(String product, String name, int slot, String material, double cost) {
         this.product = product;

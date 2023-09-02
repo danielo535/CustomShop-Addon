@@ -5,8 +5,6 @@ import dev.dejvokep.boostedyaml.settings.dumper.DumperSettings;
 import dev.dejvokep.boostedyaml.settings.general.GeneralSettings;
 import dev.dejvokep.boostedyaml.settings.loader.LoaderSettings;
 import dev.dejvokep.boostedyaml.settings.updater.UpdaterSettings;
-import lombok.Getter;
-import lombok.SneakyThrows;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import pl.danielo535.customshop.command.subcommand.ReloadSubCommand;
@@ -24,15 +22,23 @@ import java.nio.file.StandardCopyOption;
 
 public final class CustomShop extends JavaPlugin {
 
-    @Getter
     private YamlDocument confirmationMenuConfig;
-    @Getter
     private YamlDocument messagesConfig;
-    @Getter
     private ShopsLoader shopsLoader;
 
+    public YamlDocument getConfirmationMenuConfig() {
+        return confirmationMenuConfig;
+    }
+
+    public YamlDocument getMessagesConfig() {
+        return messagesConfig;
+    }
+
+    public ShopsLoader getShopsLoader() {
+        return shopsLoader;
+    }
+
     @SuppressWarnings("ConstantConditions")
-    @SneakyThrows
     @Override
     public void onEnable() {
         new Metrics(this,19700);
@@ -44,15 +50,24 @@ public final class CustomShop extends JavaPlugin {
             getLogger().info("│ Please install CustomWallet to enable. │");
             getLogger().info("╰────────────────────────────────────────╯");
         }
-        messagesConfig = YamlDocument.create(new File(getDataFolder(), "messages.yml"), getResource("messages.yml"),
-                GeneralSettings.builder().setUseDefaults(false).build(),
-                LoaderSettings.builder().setAutoUpdate(true).build(),
-                DumperSettings.DEFAULT,
-                UpdaterSettings.builder().build()
-        );
-        confirmationMenuConfig = YamlDocument.create(new File(getDataFolder(), "confirmation-menu.yml"), getResource("confirmation-menu.yml"));
+        try {
+            messagesConfig = YamlDocument.create(new File(getDataFolder(), "messages.yml"), getResource("messages.yml"),
+                    GeneralSettings.builder().setUseDefaults(false).build(),
+                    LoaderSettings.builder().setAutoUpdate(true).build(),
+                    DumperSettings.DEFAULT,
+                    UpdaterSettings.builder().build()
+            );
+            confirmationMenuConfig = YamlDocument.create(new File(getDataFolder(), "confirmation-menu.yml"), getResource("confirmation-menu.yml"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         shopsLoader = new ShopsLoader(this);
-        final CommandManager commandManager = new CommandManager(this);
+        final CommandManager commandManager;
+        try {
+            commandManager = new CommandManager(this);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
         getServer().getPluginManager().registerEvents(new JoinServerListener(this), this);
         commandManager.registerCommand(new ShopSubCommand(shopsLoader,messagesConfig));
         commandManager.registerCommand(new ReloadSubCommand(shopsLoader,messagesConfig));

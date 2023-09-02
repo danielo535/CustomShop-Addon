@@ -1,6 +1,7 @@
 name: CustomShop
-version: '1.1'
+version: '1.2'
 main: pl.danielo535.customshop.CustomShop
 api-version: '1.13'
 author: [danielo535]
 depend: [CustomWallet]
+softdepend: [PlaceholderAPI]

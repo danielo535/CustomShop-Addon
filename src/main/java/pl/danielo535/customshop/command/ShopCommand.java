@@ -8,6 +8,7 @@ import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import pl.danielo535.customshop.CustomShop;
 
+import java.io.IOException;
 import java.util.List;
 
 public abstract class ShopCommand extends Command implements PluginIdentifiableCommand {
@@ -21,13 +22,17 @@ public abstract class ShopCommand extends Command implements PluginIdentifiableC
         return CustomShop.getProvidingPlugin(CustomShop.class);
     }
 
-    public abstract void exec(CommandSender sender, String[] args);
+    public abstract void exec(CommandSender sender, String[] args) throws IOException;
 
     public abstract List<String> complete(CommandSender sender, String[] args);
 
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
-        exec(sender, args);
+        try {
+            exec(sender, args);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         return true;
     }
 

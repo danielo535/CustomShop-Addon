@@ -1,6 +1,5 @@
 package pl.danielo535.customshop.manager;
 
-import lombok.SneakyThrows;
 import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.plugin.SimplePluginManager;
 import pl.danielo535.customshop.CustomShop;
@@ -14,8 +13,7 @@ public class CommandManager {
     @SuppressWarnings("FieldCanBeLocal")
     private final SimplePluginManager pluginManager;
 
-    @SneakyThrows
-    public CommandManager(CustomShop plugin) {
+    public CommandManager(CustomShop plugin) throws NoSuchFieldException, IllegalAccessException {
         this.plugin = plugin;
         this.pluginManager = (SimplePluginManager) plugin.getServer().getPluginManager();
         Field field = SimplePluginManager.class.getDeclaredField("commandMap");

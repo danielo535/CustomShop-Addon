@@ -4,6 +4,7 @@ import dev.dejvokep.boostedyaml.YamlDocument;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
 import dev.triumphteam.gui.guis.GuiItem;
+import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -46,32 +47,36 @@ public class ConfirmationMenu {
                 .create();
         gui.getInventory().clear();
         gui.setDefaultClickAction(event -> event.setCancelled(true));
-        final GuiItem acceptItem = ItemBuilder.from(Material.valueOf(menuConfig.getString("menu-settings.accept-item")))
-                .setName(colorText(menuConfig.getString("menu-settings.accept-name")))
-                .setLore(colorList(menuConfig.getStringList("menu-settings.accept-lore")))
-                .asGuiItem(event -> {
-                    if (walletManager.checkWalletMoney(player) < product.getCost()) {
+        if (product.getCost() != 0.0) {
+            final GuiItem acceptItem = ItemBuilder.from(Material.valueOf(menuConfig.getString("menu-settings.accept-item")))
+                    .setName(colorText(menuConfig.getString("menu-settings.accept-name")))
+                    .setLore(colorList(menuConfig.getStringList("menu-settings.accept-lore")))
+                    .asGuiItem(event -> {
+                        if (walletManager.checkWalletMoney(player) < product.getCost()) {
+                            player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 1);
+                            player.sendMessage(colorText(PlaceholderAPI.setPlaceholders(player, messages.getString("errors.not-enough-balance"))));
+                        } else {
+                            player.sendMessage(colorText(PlaceholderAPI.setPlaceholders(player, messages.getString("successfully-purchased")
+                                    .replace("{PRODUCT}", product.getName()))
+                            ));
+                            player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 8);
+                            walletManager.removeWalletMoney(player, product.getCost());
+                            runCommands(product.getCommands(), player);
+                        }
+                    });
+            gui.setItem(menuConfig.getInt("menu-settings.accept-item-slot"), acceptItem);
+            final GuiItem cancelItem = ItemBuilder.from(Material.valueOf(menuConfig.getString("menu-settings.cancel-item")))
+                    .setName(colorText(menuConfig.getString("menu-settings.cancel-name")))
+                    .setLore(colorList(menuConfig.getStringList("menu-settings.cancel-lore")))
+                    .asGuiItem(event -> {
                         player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 1);
-                        player.sendMessage(colorText(messages.getString("errors.not-enough-balance")));
-                    } else {
-                        player.sendMessage(colorText(messages.getString("successfully-purchased")
-                                .replace("{PRODUCT}", product.getName())
-                        ));
-                        player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 8);
-                        walletManager.removeWalletMoney(player, product.getCost());
-                        runCommands(product.getCommands(), player);
-                    }
-                });
-        gui.setItem(menuConfig.getInt("menu-settings.accept-item-slot"), acceptItem);
-        final GuiItem cancelItem = ItemBuilder.from(Material.valueOf(menuConfig.getString("menu-settings.cancel-item")))
-                .setName(colorText(menuConfig.getString("menu-settings.cancel-name")))
-                .setLore(colorList(menuConfig.getStringList("menu-settings.cancel-lore")))
-                .asGuiItem(event -> {
-                    player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 1);
-                    new ShopMenu(shop, player);
-                });
-        gui.setItem(menuConfig.getInt("menu-settings.cancel-item-slot"), cancelItem);
-        gui.open(player);
+                        new ShopMenu(shop, player);
+                    });
+            gui.setItem(menuConfig.getInt("menu-settings.cancel-item-slot"), cancelItem);
+            gui.open(player);
+        } else if (product.getCommands() != null){
+            runCommands(product.getCommands(), player);
+        }
     }
 
     private void runCommands(List<String> commands, Player player) {

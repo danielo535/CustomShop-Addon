@@ -5,24 +5,116 @@ name: "example-shop"              # Unique name for the shop
 shop-title: "Example Shop"        # Title displayed at the top of the shop
 shop-size: 5                      # Number of rows in the shop menu
 
-# Products Configuration
+# Mini-Wiki about Products in Store Configuration
+#
+# Below is information about the configuration of products in your store:
+#
+# Product-1:          # Unique product identifier (e.g. vip-rank)
+# item-name: ...      # Item name (visible to player)
+# item-lore:          # Item description (list of lines of text)
+# - ...               # Line 1
+# - ...               # Line 2
+# item-slot: ...      # Slot where the item is to be placed
+# item-material: ...  # Item material (e.g. EMERALD_BLOCK)
+# cost: ...           # Product cost
+# commands:           # Commands to be executed after purchase
+# - ...               # Example: "lp user {PLAYER} parent set vip"
+#
+# You can customize products to your needs and add new ones using the appropriate identifiers.
+# Placeholders are supported.
+# Make sure each product has a unique ID.
 products:
   # First Product: VIP Rank
-  rank-vip:                       # Unique identifier for the product (e.g., VIP rank)
-    item-name: "&a[VIP] Rank"     # Name of the item
-    item-lore:                    # Lore of the item
+  rank-vip:
+    item-name: "&a[VIP] Rank"
+    item-lore:
       - "&7Get better perks on our network"
       - "&7with this exclusive rank"
       - ""
       - "&7Cost: &61000"
       - ""
       - "&eClick to purchase!"
-    item-slot: 11                 # Slot where the item is located
-    item-material: EMERALD_BLOCK  # Material of the item
-    cost: 1000                    # Cost of this product
-
-    # Commands to Execute After Purchase
+    item-slot: 11
+    item-material: EMERALD_BLOCK
+    cost: 1000
     # You can use {PLAYER} as a placeholder for the player's name
     commands:
       # This command will give the 'vip' rank to the player
       - "lp user {PLAYER} parent set vip"
+
+
+# Mini-Wiki about (Custom Items)
+#
+# Custom items are additional items that can be placed in the shop menu.
+# Below is information about them:
+#
+# 1:                  # Unique item identifier (e.g. number)
+# item-material: ...  # Item material (e.g. LIME_STAINED_GLASS_PANE)
+# item-slot: ...      # Slot where the item is to be placed
+# item-name: ...      # Item name (visible to player)
+# item-lore:          # Item description (list of lines of text)
+# - ...               # Line 1
+# - ...               # Line 2
+# commands:           # Commands to execute when clicked
+# - ...               # Example: "say Example command"
+#
+# You can freely customize custom items and their behavior.
+# Placeholders are supported.
+# Remember that each item must have a unique identifier eg (number).
+custom:
+  1:
+    item-material: LIME_STAINED_GLASS_PANE
+    item-slot: 36
+    item-name: " "
+    item-lore:
+      - " "
+  2:
+    item-material: LIME_STAINED_GLASS_PANE
+    item-slot: 37
+    item-name: " "
+    item-lore:
+      - " "
+  3:
+    item-material: LIME_STAINED_GLASS_PANE
+    item-slot: 38
+    item-name: " "
+    item-lore:
+      - " "
+  4:
+    item-material: LIME_STAINED_GLASS_PANE
+    item-slot: 39
+    item-name: " "
+    item-lore:
+      - " "
+  Info:
+    item-material: BOOK
+    item-slot: 40
+    item-name: "&9Info Wallet"
+    item-lore:
+      - "&aYour balance: &6%wallet_value-formatted%$"
+    commands:
+      - "say test"
+  5:
+    item-material: LIME_STAINED_GLASS_PANE
+    item-slot: 41
+    item-name: " "
+    item-lore:
+      - " "
+  6:
+    item-material: LIME_STAINED_GLASS_PANE
+    item-slot: 42
+    item-name: " "
+    item-lore:
+      - " "
+  7:
+    item-material: LIME_STAINED_GLASS_PANE
+    item-slot: 43
+    item-name: " "
+    item-lore:
+      - " "
+  8:
+    item-material: LIME_STAINED_GLASS_PANE
+    item-slot: 44
+    item-name: " "
+    item-lore:
+      - " "

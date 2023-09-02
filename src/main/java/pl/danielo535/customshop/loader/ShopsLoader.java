@@ -1,9 +1,9 @@
 package pl.danielo535.customshop.loader;
 
-import lombok.Getter;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import pl.danielo535.customshop.CustomShop;
+import pl.danielo535.customshop.object.Custom;
 import pl.danielo535.customshop.object.Product;
 import pl.danielo535.customshop.object.Shop;
 
@@ -15,9 +15,15 @@ import java.util.List;
 public class ShopsLoader {
 
     private final CustomShop plugin;
-    @Getter
     private final HashMap<String, Shop> shops = new HashMap<>();
 
+    public CustomShop getPlugin() {
+        return plugin;
+    }
+
+    public HashMap<String, Shop> getShops() {
+        return shops;
+    }
     public ShopsLoader(CustomShop plugin) {
         this.plugin = plugin;
     }
@@ -45,6 +51,15 @@ public class ShopsLoader {
                 product.setLore(shopConfigs.getStringList("products." + string + ".item-lore"));
                 product.setCommands(shopConfigs.getStringList("products." + string + ".commands"));
                 shop.getProducts().put(string, product);
+            }
+            for (String string : shopConfigs.getConfigurationSection("custom").getKeys(false)) {
+                final Custom custom = new Custom(string, shopConfigs.getString("custom." + string + ".item-name"),
+                        shopConfigs.getInt("custom." + string + ".item-slot"),
+                        shopConfigs.getString("custom." + string + ".item-material")
+                );
+                custom.setLore(shopConfigs.getStringList("custom." + string + ".item-lore"));
+                custom.setCommands(shopConfigs.getStringList("custom." + string + ".commands"));
+                shop.getFilters().put(string, custom);
             }
             this.shops.put(shopConfigs.getString("name"), shop);
         }

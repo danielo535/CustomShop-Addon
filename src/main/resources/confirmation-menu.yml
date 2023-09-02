@@ -24,4 +24,4 @@ menu-settings:
 
   # Slots for the buttons within the menu
   accept-item-slot: 11  # Slot where the accept button is located (slot 11 by default)
-  cancel-item-slot: 15 # Slot where the cancel button is located (slot 15 by default)
+  cancel-item-slot: 15  # Slot where the cancel button is located (slot 15 by default)
