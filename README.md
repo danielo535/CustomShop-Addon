@@ -3,7 +3,7 @@
   ![ustomShop-Addon Logo](https://imgur.com/wWH0FuG.png)
 
   # CustomShop-Addon
-  **Info Plugin SOON**: [Wiki](https://github.com/danielo535/CustomWallet/wiki)<br />
+  **Docs Plugin**: [Wiki](https://github.com/danielo535/CustomShop-Addon/wiki)<br />
   **Depend**: [CustomWallet](https://www.spigotmc.org/resources/112339/)
 
   ![](https://img.shields.io/github/v/release/danielo535/CustomShop-Addon.svg)
