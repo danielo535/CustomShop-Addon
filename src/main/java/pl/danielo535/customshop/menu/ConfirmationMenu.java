@@ -16,27 +16,47 @@ import pl.danielo535.customshop.CustomShop;
 import pl.danielo535.customshop.object.Product;
 import pl.danielo535.customshop.object.Shop;
 
+import java.io.IOException;
 import java.util.List;
 
 import static pl.danielo535.customshop.utility.ColorUtils.colorText;
 import static pl.danielo535.customshop.utility.ColorUtils.colorList;
 
 public class ConfirmationMenu {
-    private final CustomShop plugin = CustomShop.getPlugin(CustomShop.class);
-    WalletManager walletManager = CustomWallet.getInstance().getWalletManager();
-    private final YamlDocument menuConfig = plugin.getConfirmationMenuConfig();
-    private final YamlDocument messages = plugin.getMessagesConfig();
-    @SuppressWarnings("FieldCanBeLocal")
+    private static ConfirmationMenu instance;
 
-    private final Product product;
-    private final Shop shop;
-    private final String user;
+    private CustomShop plugin;
+    private YamlDocument menuConfig;
+    private YamlDocument messages;
+    private WalletManager walletManager;
+    private ConfirmationMenu() {
+        plugin = CustomShop.getPlugin(CustomShop.class);
+        menuConfig = plugin.getConfirmationMenuConfig();
+        messages = plugin.getMessagesConfig();
+        walletManager = CustomWallet.getInstance().getWalletManager();
+    }
 
-    public ConfirmationMenu(Product product, Shop shop, Player player) {
+    private Product product;
+    private Shop shop;
+
+    public void setParameters(Product product, Shop shop, Player player) {
         this.product = product;
         this.shop = shop;
-        this.user = player.getName();
         this.open(player);
+    }
+
+    public void reload() throws IOException {
+        plugin.getConfirmationMenuConfig().reload();
+        plugin.getMessagesConfig().reload();
+        menuConfig = plugin.getConfirmationMenuConfig();
+        messages = plugin.getMessagesConfig();
+    }
+
+    public static ConfirmationMenu getInstance() {
+        if (instance == null) {
+            instance = new ConfirmationMenu();
+        }
+        return instance;
     }
 
     @SuppressWarnings("deprecation")

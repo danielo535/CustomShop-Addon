@@ -38,7 +38,6 @@ public final class CustomShop extends JavaPlugin {
         return shopsLoader;
     }
 
-    @SuppressWarnings("ConstantConditions")
     @Override
     public void onEnable() {
         new Metrics(this,19700);
@@ -108,10 +107,5 @@ public final class CustomShop extends JavaPlugin {
                 exception.printStackTrace();
             }
         }
-    }
-
-    @Override
-    public void onDisable() {
-        // empty ;)
     }
 }

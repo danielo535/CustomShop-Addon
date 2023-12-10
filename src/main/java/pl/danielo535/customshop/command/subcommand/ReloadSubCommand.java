@@ -4,6 +4,7 @@ import dev.dejvokep.boostedyaml.YamlDocument;
 import org.bukkit.command.CommandSender;
 import pl.danielo535.customshop.command.ShopCommand;
 import pl.danielo535.customshop.loader.ShopsLoader;
+import pl.danielo535.customshop.menu.ConfirmationMenu;
 
 import java.io.IOException;
 import java.util.*;
@@ -28,6 +29,7 @@ public class ReloadSubCommand extends ShopCommand {
             if (sender.hasPermission("CustomShop.reload")) {
                 shopsLoader.reload();
                 messages.reload();
+                ConfirmationMenu.getInstance().reload();
                 sender.sendMessage(colorText(messages.getString("reloaded")));
             } else {
                 sender.sendMessage(colorText(messages.getString("errors.no-permission")));
